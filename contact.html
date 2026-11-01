@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Contact Essence in Addis Ababa by phone, WhatsApp, email or visit. Order help, delivery questions and returns.">
+  <title>Contact | Essence · አግኙን</title>
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1c1a17;
+      --muted: #6b655c;
+      --paper: #faf7f2;
+      --card: #ffffff;
+      --line: #e8e2d7;
+      --accent: #b5532c;
+      --accent-dark: #8f3f1f;
+      --gold: #d9a441;
+      --green: #2f6b4f;
+      --radius: 14px;
+      --font: "Inter", "Noto Sans Ethiopic", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --display: "Fraunces", Georgia, "Noto Sans Ethiopic", serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: var(--font); color: var(--ink); background: var(--paper); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+    .container { width: min(1180px, 92%); margin-inline: auto; }
+    .eyebrow { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+      padding: 14px 24px; border-radius: 999px; border: 0; cursor: pointer;
+      background: var(--ink); color: #fff; font-weight: 600; font-size: .95rem;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+    .icon-btn {
+      width: 42px; height: 42px; border-radius: 50%; border: 0; background: transparent;
+      display: grid; place-items: center; cursor: pointer; position: relative; color: var(--ink);
+    }
+    .icon-btn:hover { background: var(--line); }
+    .icon-btn svg { width: 20px; height: 20px; }
+    .badge-count {
+      position: absolute; top: 2px; right: 0; min-width: 18px; height: 18px; padding: 0 5px;
+      background: var(--accent); color: #fff; border-radius: 999px; font-size: .7rem;
+      display: grid; place-items: center; font-weight: 700;
+    }
+
+    /* ===== Announcement ===== */
+    .announce { background: var(--ink); color: #f4efe6; font-size: .85rem; text-align: center; padding: 9px 12px; }
+    .announce strong { color: var(--gold); }
+
+    /* ===== Header ===== */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(250, 247, 242, .94); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+    .brand { font-family: var(--display); font-size: 1.7rem; font-weight: 600; letter-spacing: -.01em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; font-weight: 500; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: 6px; }
+    .menu-toggle { display: none; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--paper); padding: 20px 4%; border-bottom: 1px solid var(--line); gap: 16px;
+      }
+      .menu-toggle { display: grid; }
+    }
+
+    /* ===== Page head ===== */
+    .page-head {
+      background: var(--ink); color: #f4efe6; padding: clamp(44px, 7vw, 72px) 0;
+      background-image: linear-gradient(120deg, rgba(20,16,12,.92), rgba(20,16,12,.72)), url("img/bg-img/breadcumb.jpg");
+      background-size: cover; background-position: center;
+    }
+    .page-head .eyebrow { color: var(--gold); }
+    .page-head h1 { font-family: var(--display); font-weight: 500; font-size: clamp(2.4rem, 5.5vw, 3.8rem); line-height: 1.05; margin-top: 10px; }
+    .page-head p.lead { opacity: .85; max-width: 52ch; margin-top: 14px; }
+
+    /* ===== Quick contact cards ===== */
+    .quick {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-top: -36px; position: relative; z-index: 2;
+    }
+    .quick a, .quick div {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 20px; display: grid; gap: 4px; box-shadow: 0 6px 24px rgba(28,26,23,.06);
+      transition: transform .2s, border-color .2s;
+    }
+    .quick a:hover { transform: translateY(-2px); border-color: var(--ink); }
+    .quick .label { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .quick strong { font-size: 1rem; }
+    .quick small { color: var(--muted); font-size: .85rem; }
+    .quick .wa strong { color: var(--green); }
+
+    /* ===== Main layout ===== */
+    .contact-layout { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; padding: 64px 0 40px; align-items: start; }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: clamp(24px, 4vw, 40px); }
+    .panel h2 { font-family: var(--display); font-weight: 500; font-size: clamp(1.7rem, 3vw, 2.2rem); line-height: 1.1; margin: 8px 0 10px; }
+    .panel > p { color: var(--muted); margin-bottom: 26px; }
+
+    /* ===== Form ===== */
+    .form { display: grid; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { display: grid; gap: 6px; }
+    .field label { font-size: .88rem; font-weight: 600; }
+    .field .hint { font-size: .8rem; color: var(--muted); font-weight: 400; }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--line);
+      background: var(--paper); color: var(--ink);
+    }
+    .field textarea { min-height: 130px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+    .field .error { color: var(--accent-dark); font-size: .82rem; display: none; }
+    .field.invalid input, .field.invalid textarea, .field.invalid select { border-color: var(--accent); }
+    .field.invalid .error { display: block; }
+    .form .btn { justify-self: start; margin-top: 4px; }
+    .form-note { font-size: .9rem; color: var(--green); min-height: 1.4em; font-weight: 600; }
+
+    /* ===== Info side ===== */
+    .info-stack { display: grid; gap: 20px; }
+    .hours-card, .visit-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+    .hours-card h3, .visit-card h3 { font-size: 1rem; margin-bottom: 12px; }
+    .hours-card table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    .hours-card td { padding: 7px 0; border-bottom: 1px dashed var(--line); }
+    .hours-card td:last-child { text-align: right; color: var(--muted); }
+    .hours-card tr:last-child td { border-bottom: 0; }
+    .hours-card .open-now { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: .85rem; color: var(--green); font-weight: 600; }
+    .hours-card .open-now::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+    .hours-card .open-now.closed { color: var(--accent-dark); }
+    .hours-card .open-now.closed::before { background: var(--accent-dark); }
+
+    .map {
+      border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+      background: var(--line); aspect-ratio: 16 / 10;
+    }
+    .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .visit-card p { color: var(--muted); font-size: .95rem; }
+    .visit-card p + p { margin-top: 8px; }
+    .visit-card .btn { margin-top: 16px; padding: 11px 18px; font-size: .9rem; }
+    .visit-card .btn.outline { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); margin-left: 8px; }
+    .visit-card .btn.outline:hover { background: var(--ink); color: #fff; }
+
+    /* ===== Help topics ===== */
+    .topics { padding: 24px 0 88px; }
+    .topics-head { margin-bottom: 24px; }
+    .topics-head h2 { font-family: var(--display); font-weight: 500; font-size: clamp(1.7rem, 3vw, 2.2rem); margin-top: 6px; }
+    .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .topic {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px;
+    }
+    .topic h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .topic p { color: var(--muted); font-size: .95rem; }
+    .topic a { display: inline-block; margin-top: 12px; font-weight: 600; color: var(--accent-dark); font-size: .92rem; }
+    .topic a:hover { text-decoration: underline; }
+
+    /* ===== Footer ===== */
+    footer { background: var(--ink); color: #d9d2c4; padding: 64px 0 96px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 32px; }
+    footer h4 { color: #fff; font-size: .95rem; margin-bottom: 14px; }
+    footer ul { list-style: none; display: grid; gap: 10px; font-size: .92rem; }
+    footer a:hover { color: var(--gold); }
+    footer .brand { color: #fff; }
+    footer .brand span { color: var(--gold); }
+    .footer-tag { font-size: .92rem; margin-top: 12px; max-width: 32ch; opacity: .8; }
+    .order-btn {
+      display: inline-flex; margin-top: 16px; padding: 11px 18px; border-radius: 999px;
+      background: #25d366; color: #fff; font-weight: 600; font-size: .9rem;
+    }
+    .order-btn:hover { color: #fff; filter: brightness(1.05); }
+    .social { display: flex; gap: 10px; margin-top: 16px; }
+    .social a {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid #3a342c;
+      display: grid; place-items: center; font-size: .75rem; font-weight: 700;
+    }
+    .social a:hover { border-color: var(--gold); color: var(--gold); }
+    .copyright {
+      margin-top: 48px; padding-top: 22px; border-top: 1px solid #3a342c;
+      font-size: .85rem; opacity: .7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ===== Mobile bottom bar ===== */
+    .mobile-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+      background: var(--card); border-top: 1px solid var(--line);
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      grid-template-columns: repeat(4, 1fr); text-align: center; font-size: .72rem; font-weight: 600;
+    }
+    .mobile-bar a { padding: 6px; border-radius: 10px; display: grid; gap: 2px; justify-items: center; }
+    .mobile-bar a:hover, .mobile-bar a[aria-current="page"] { color: var(--accent); }
+    .mobile-bar i { font-style: normal; font-size: 1.1rem; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 960px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .quick { grid-template-columns: repeat(2, 1fr); margin-top: -28px; }
+      .topic-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .mobile-bar { display: grid; }
+      footer { padding-bottom: 110px; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .topic-grid { grid-template-columns: 1fr; }
+      .visit-card .btn.outline { margin-left: 0; margin-top: 10px; }
+      .visit-card .btn { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announce">
+    Free delivery in <strong>Addis Ababa</strong> on orders over <strong>ETB 3,000</strong> · Pay with Telebirr, CBE Birr or Chapa
+  </div>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Essence home">Essence<span>.</span></a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="shop.html">Shop</a>
+        <a href="shop.html?cat=women">Women</a>
+        <a href="shop.html?cat=men">Men</a>
+        <a href="blog.html">Journal</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <a class="icon-btn" href="#" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.6-9.5 9-9.5 9z"/></svg>
+        </a>
+        <a class="icon-btn" href="#" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        </a>
+        <a class="icon-btn" href="shop.html" aria-label="Open bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.2 12.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        </a>
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Page head ===== -->
+    <section class="page-head">
+      <div class="container">
+        <p class="eyebrow">We're here to help</p>
+        <h1>Let's talk</h1>
+        <p class="lead">Questions about an order, delivery in your area, sizing or a return? Message us on WhatsApp for the fastest reply, or send the form below.</p>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <!-- ===== Quick contact cards ===== -->
+      <div class="quick">
+        <a href="https://wa.me/251000000000" target="_blank" rel="noopener" class="wa">
+          <span class="label">WhatsApp</span>
+          <strong>+251 00 000 0000</strong>
+          <small>Fastest reply, usually within an hour</small>
+        </a>
+        <a href="tel:+251000000000">
+          <span class="label">Call us</span>
+          <strong>+251 00 000 0000</strong>
+          <small>Mon–Sat, 9:00–18:00</small>
+        </a>
+        <a href="mailto:hello@essence.et">
+          <span class="label">Email</span>
+          <strong>hello@essence.et</strong>
+          <small>We reply within one working day</small>
+        </a>
+        <div>
+          <span class="label">Visit</span>
+          <strong>Bole, Addis Ababa</strong>
+          <small>Showroom and pickup point</small>
+        </div>
+      </div>
+
+      <!-- ===== Form + info ===== -->
+      <div class="contact-layout">
+
+        <section class="panel" aria-labelledby="formHeading">
+          <p class="eyebrow">Send us a message</p>
+          <h2 id="formHeading">Tell us what you need</h2>
+          <p>Include your order number if you have one. We'll reply by WhatsApp or email, whichever you prefer.</p>
+
+          <form class="form" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="field" data-field>
+                <label for="name">Full name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required>
+                <span class="error">Please enter your name.</span>
+              </div>
+              <div class="field" data-field>
+                <label for="phone">Phone or email</label>
+                <input id="phone" name="contact" type="text" autocomplete="tel" placeholder="09… or name@email.com" required>
+                <span class="error">Please enter a phone number or email.</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="topic">What's it about?</label>
+              <select id="topic" name="topic">
+                <option value="order">Order status</option>
+                <option value="delivery">Delivery to my area</option>
+                <option value="payment">Payment (Telebirr, CBE Birr, Chapa)</option>
+                <option value="sizing">Sizing and fit</option>
+                <option value="return">Returns or exchange</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div class="field" data-field>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+              <span class="error">Please tell us a little more.</span>
+            </div>
+
+            <button class="btn" type="submit">Send message →</button>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </section>
+
+        <aside class="info-stack">
+          <div class="hours-card">
+            <h3>Opening hours</h3>
+            <table>
+              <tr><td>Monday – Saturday</td><td>9:00 – 18:00</td></tr>
+              <tr><td>Sunday</td><td>Closed</td></tr>
+              <tr><td>Public holidays</td><td>Check WhatsApp</td></tr>
+            </table>
+            <p class="open-now" id="openNow"></p>
+          </div>
+
+          <div class="map">
+            <iframe
+              title="Map showing Essence in Bole, Addis Ababa"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=38.7820%2C8.9920%2C38.7960%2C9.0020&amp;layer=mapnik&amp;marker=8.9970%2C38.7890">
+            </iframe>
+          </div>
+
+          <div class="visit-card">
+            <h3>Visit us in Bole</h3>
+            <p>Bole, Addis Ababa, Ethiopia</p>
+            <p>Pick up orders, try on pieces, or ask our team about sizing in person.</p>
+            <a class="btn" href="https://www.openstreetmap.org/?mlat=8.9970&amp;mlon=38.7890#map=17/8.9970/38.7890" target="_blank" rel="noopener">Get directions</a>
+            <a class="btn outline" href="tel:+251000000000">Call now</a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ===== Help topics ===== -->
+      <section class="topics" aria-labelledby="helpHeading">
+        <div class="topics-head">
+          <p class="eyebrow">Before you write</p>
+          <h2 id="helpHeading">Common questions</h2>
+        </div>
+        <div class="topic-grid">
+          <article class="topic">
+            <h3>Where is my order?</h3>
+            <p>Orders are dispatched within one working day. You'll get an SMS when it leaves our store.</p>
+            <a href="#">Order status →</a>
+          </article>
+          <article class="topic">
+            <h3>Do you deliver outside Addis?</h3>
+            <p>Yes. We ship to Hawassa, Bahir Dar, Adama and other major towns. Delivery fees are shown at checkout.</p>
+            <a href="#">Delivery and shipping →</a>
+          </article>
+          <article class="topic">
+            <h3>Can I return something?</h3>
+            <p>Returns are accepted within 7 days if the item is unworn, unwashed and has its tags. Exchanges are free within Addis Ababa.</p>
+            <a href="#">Returns policy →</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand">Essence<span>.</span></div>
+          <p class="footer-tag">Considered wardrobe essentials, made to be worn and kept.</p>
+          <a class="order-btn" href="https://wa.me/251000000000" target="_blank" rel="noopener">Order on WhatsApp</a>
+          <div class="social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="TikTok">tt</a>
+            <a href="#" aria-label="Telegram">tg</a>
+          </div>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html?cat=women">Women</a></li>
+            <li><a href="shop.html?cat=men">Men</a></li>
+            <li><a href="shop.html?cat=kids">Kids</a></li>
+            <li><a href="shop.html?cat=accessories">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Order status</a></li>
+            <li><a href="#">Payment options</a></li>
+            <li><a href="#">Delivery &amp; shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>+251 00 000 0000</li>
+            <li>hello@essence.et</li>
+            <li>Bole, Addis Ababa</li>
+            <li>Mon–Sat, 9:00–18:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <span>© <span id="year"></span> Essence. All rights reserved.</span>
+        <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile bottom navigation -->
+  <nav class="mobile-bar" aria-label="Quick navigation">
+    <a href="index.html"><i>⌂</i>Home</a>
+    <a href="shop.html"><i>▦</i>Shop</a>
+    <a href="shop.html"><i>👜</i>Bag</a>
+    <a href="contact.html" aria-current="page"><i>☏</i>Help</a>
+  </nav>
+
+  <script>
+    // ===== Year =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== Open / closed indicator (Addis Ababa time, UTC+3) =====
+    // Shows whether the shop is open right now, using the visitor's clock converted to Addis time.
+    (function openStatus() {
+      const el = document.getElementById('openNow');
+      const now = new Date(Date.now() + (new Date().getTimezoneOffset() + 180) * 60000);
+      const day = now.getDay();   // 0 = Sunday
+      const mins = now.getHours() * 60 + now.getMinutes();
+      const open = day !== 0 && mins >= 9 * 60 && mins < 18 * 60;
+      el.textContent = open ? 'Open now · replies within the hour' : 'Closed now · we reply the next working day';
+      el.classList.toggle('closed', !open);
+    })();
+
+    // ===== Mobile menu =====
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', open);
+    });
+
+    // ===== Form validation =====
+    const form = document.getElementById('contactForm');
+    const note = document.getElementById('formNote');
+
+    function validate() {
+      let ok = true;
+      form.querySelectorAll('[data-field]').forEach(f => {
+        const input = f.querySelector('input, textarea');
+        const valid = input.value.trim().length > 0;
+        f.classList.toggle('invalid', !valid);
+        if (!valid) ok = false;
+      });
+      return ok;
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      note.textContent = '';
+      if (!validate()) {
+        form.querySelector('.field.invalid input, .field.invalid textarea')?.focus();
+        return;
+      }
+      // Replace with a real submission (email service, CRM or backend endpoint).
+      note.textContent = 'Thank you. We\'ve received your message and will reply shortly.';
+      form.reset();
+    });
+
+    form.querySelectorAll('input, textarea').forEach(i =>
+      i.addEventListener('input', () => i.closest('[data-field]')?.classList.remove('invalid')));
+  </script>
+</body>
+</html>

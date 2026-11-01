@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Checkout at Essence. Pay with Telebirr, CBE Birr, Chapa, bank transfer or cash on delivery across Ethiopia.">
+  <title>Checkout | Essence · ክፍያ</title>
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1c1a17;
+      --muted: #6b655c;
+      --paper: #faf7f2;
+      --card: #ffffff;
+      --line: #e8e2d7;
+      --accent: #b5532c;
+      --accent-dark: #8f3f1f;
+      --gold: #d9a441;
+      --green: #2f6b4f;
+      --radius: 14px;
+      --font: "Inter", "Noto Sans Ethiopic", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --display: "Fraunces", Georgia, "Noto Sans Ethiopic", serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: var(--font); color: var(--ink); background: var(--paper); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+    .container { width: min(1180px, 92%); margin-inline: auto; }
+    .eyebrow { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+      padding: 14px 24px; border-radius: 999px; border: 0; cursor: pointer;
+      background: var(--ink); color: #fff; font-weight: 600; font-size: .95rem;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+    .btn.block { width: 100%; }
+    .icon-btn {
+      width: 42px; height: 42px; border-radius: 50%; border: 0; background: transparent;
+      display: grid; place-items: center; cursor: pointer; color: var(--ink);
+    }
+    .icon-btn:hover { background: var(--line); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    /* ===== Announcement ===== */
+    .announce { background: var(--ink); color: #f4efe6; font-size: .85rem; text-align: center; padding: 9px 12px; }
+    .announce strong { color: var(--gold); }
+
+    /* ===== Header ===== */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(250, 247, 242, .94); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+    .brand { font-family: var(--display); font-size: 1.7rem; font-weight: 600; letter-spacing: -.01em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-actions { display: flex; align-items: center; gap: 6px; }
+    .menu-toggle { display: none; }
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0;
+        background: var(--paper); padding: 20px 4%; border-bottom: 1px solid var(--line); gap: 16px;
+      }
+      .menu-toggle { display: grid; }
+    }
+
+    /* ===== Page head & steps ===== */
+    .page-head { padding: 40px 0 24px; }
+    .page-head h1 { font-family: var(--display); font-weight: 500; font-size: clamp(2.2rem, 4.5vw, 3rem); line-height: 1.05; margin-top: 8px; }
+    .steps { display: flex; gap: 10px; align-items: center; margin-top: 18px; font-size: .9rem; color: var(--muted); flex-wrap: wrap; }
+    .steps span { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); }
+    .steps span.current { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 600; }
+    .steps span.done { color: var(--green); }
+
+    /* ===== Layout ===== */
+    .checkout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; padding-bottom: 72px; }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: clamp(22px, 3.5vw, 34px); margin-bottom: 20px; }
+    .panel h2 { font-family: var(--display); font-weight: 500; font-size: 1.5rem; margin-bottom: 4px; }
+    .panel > p.hint { color: var(--muted); font-size: .92rem; margin-bottom: 20px; }
+    .summary { position: sticky; top: 96px; }
+
+    /* ===== Form fields ===== */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .88rem; font-weight: 600; }
+    .field label .opt { font-weight: 400; color: var(--muted); }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--line);
+      background: var(--paper); color: var(--ink);
+    }
+    .field textarea { min-height: 84px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+    .field .help { font-size: .8rem; color: var(--muted); }
+    .field .error { font-size: .82rem; color: var(--accent-dark); display: none; }
+    .field.invalid input, .field.invalid select { border-color: var(--accent); }
+    .field.invalid .error { display: block; }
+
+    /* ===== Payment options ===== */
+    .pay-options { display: grid; gap: 12px; }
+    .pay-option { position: relative; }
+    .pay-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .pay-option label {
+      display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start;
+      padding: 16px 18px; border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer; background: #fff;
+      transition: border-color .2s, background .2s;
+    }
+    .pay-option label:hover { border-color: var(--ink); }
+    .pay-option .radio {
+      grid-row: span 2; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line);
+      display: grid; place-items: center; margin-top: 2px;
+    }
+    .pay-option input:checked + label { border-color: var(--ink); background: var(--paper); }
+    .pay-option input:checked + label .radio { border-color: var(--accent); }
+    .pay-option input:checked + label .radio::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+    .pay-option input:focus-visible + label { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .pay-name { font-weight: 600; }
+    .pay-tag { font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: var(--line); margin-left: 8px; vertical-align: 2px; }
+    .pay-tag.rec { background: var(--green); color: #fff; }
+    .pay-desc { grid-column: 2; font-size: .88rem; color: var(--muted); }
+
+    /* ===== Terms ===== */
+    .check { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; margin-top: 8px; }
+    .check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+    .check a { color: var(--accent-dark); text-decoration: underline; }
+    .check.invalid { color: var(--accent-dark); }
+
+    /* ===== Order summary ===== */
+    .line-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: center; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px dashed var(--line); }
+    .line-item img { width: 72px; height: 90px; object-fit: cover; border-radius: 10px; }
+    .line-item h3 { font-size: .95rem; line-height: 1.3; }
+    .line-item .meta { font-size: .82rem; color: var(--muted); }
+    .line-item .qty-text { font-size: .82rem; color: var(--muted); }
+    .line-item .price { font-weight: 600; white-space: nowrap; }
+    .sum-row { display: flex; justify-content: space-between; font-size: .95rem; margin-bottom: 8px; gap: 12px; }
+    .sum-row .free { color: var(--green); font-weight: 600; }
+    .sum-row.total { font-weight: 700; font-size: 1.12rem; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .fee-note { font-size: .8rem; color: var(--muted); margin: 6px 0 16px; }
+    .secure { display: flex; gap: 8px; align-items: center; justify-content: center; font-size: .82rem; color: var(--muted); margin-top: 14px; }
+    .form-error { color: var(--accent-dark); font-size: .9rem; font-weight: 600; min-height: 1.3em; margin-top: 12px; text-align: center; }
+    .empty { text-align: center; padding: 40px 0; color: var(--muted); }
+
+    /* ===== Footer ===== */
+    footer { background: var(--ink); color: #d9d2c4; padding: 64px 0 96px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 32px; }
+    footer h4 { color: #fff; font-size: .95rem; margin-bottom: 14px; }
+    footer ul { list-style: none; display: grid; gap: 10px; font-size: .92rem; }
+    footer a:hover { color: var(--gold); }
+    footer .brand { color: #fff; }
+    footer .brand span { color: var(--gold); }
+    .footer-tag { font-size: .92rem; margin-top: 12px; max-width: 32ch; opacity: .8; }
+    .order-btn { display: inline-flex; margin-top: 16px; padding: 11px 18px; border-radius: 999px; background: #25d366; color: #fff; font-weight: 600; font-size: .9rem; }
+    .order-btn:hover { color: #fff; filter: brightness(1.05); }
+    .social { display: flex; gap: 10px; margin-top: 16px; }
+    .social a { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #3a342c; display: grid; place-items: center; font-size: .75rem; font-weight: 700; }
+    .social a:hover { border-color: var(--gold); color: var(--gold); }
+    .copyright { margin-top: 48px; padding-top: 22px; border-top: 1px solid #3a342c; font-size: .85rem; opacity: .7; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    /* ===== Mobile bottom bar ===== */
+    .mobile-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+      background: var(--card); border-top: 1px solid var(--line);
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      grid-template-columns: repeat(4, 1fr); text-align: center; font-size: .72rem; font-weight: 600;
+    }
+    .mobile-bar a { padding: 6px; border-radius: 10px; display: grid; gap: 2px; justify-items: center; }
+    .mobile-bar a:hover { color: var(--accent); }
+    .mobile-bar i { font-style: normal; font-size: 1.1rem; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 960px) {
+      .checkout { grid-template-columns: 1fr; }
+      .summary { position: static; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .mobile-bar { display: grid; }
+      footer { padding-bottom: 110px; }
+    }
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announce">
+    Free delivery in <strong>Addis Ababa</strong> on orders over <strong>ETB 3,000</strong> · Pay with Telebirr, CBE Birr or Chapa
+  </div>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Essence home">Essence<span>.</span></a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="shop.html">Shop</a>
+        <a href="shop.html?cat=women">Women</a>
+        <a href="shop.html?cat=men">Men</a>
+        <a href="blog.html">Journal</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="icon-btn" href="#" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        </a>
+        <a class="icon-btn" href="shop.html" aria-label="Back to shop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.2 12.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        </a>
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ===== Page head ===== -->
+    <section class="page-head">
+      <p class="eyebrow">Almost there</p>
+      <h1>Checkout</h1>
+      <div class="steps" aria-label="Checkout progress">
+        <span class="done">✓ Bag</span>
+        <span class="current">2 · Delivery &amp; payment</span>
+        <span>3 · Confirmation</span>
+      </div>
+    </section>
+
+    <form class="checkout" id="checkoutForm" novalidate>
+
+      <!-- ===== Left: details ===== -->
+      <div>
+        <section class="panel" aria-labelledby="contactHeading">
+          <h2 id="contactHeading">Contact details</h2>
+          <p class="hint">We'll send your order updates by SMS and WhatsApp.</p>
+          <div class="grid-2">
+            <div class="field" data-field>
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" type="text" autocomplete="name" required>
+              <span class="error">Please enter your full name.</span>
+            </div>
+            <div class="field" data-field data-type="phone">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="09 xxx xxxx" required>
+              <span class="help">Ethiopian mobile, e.g. 09… or 07…</span>
+              <span class="error">Enter a valid Ethiopian mobile number.</span>
+            </div>
+            <div class="field full">
+              <label for="email">Email <span class="opt">(optional)</span></label>
+              <input id="email" name="email" type="email" autocomplete="email">
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="deliveryHeading">
+          <h2 id="deliveryHeading">Delivery address</h2>
+          <p class="hint">Delivery fees are shown in your summary once you choose a region.</p>
+          <div class="grid-2">
+            <div class="field" data-field>
+              <label for="region">Region</label>
+              <select id="region" name="region" required>
+                <option value="">Choose a region</option>
+                <option value="addis">Addis Ababa</option>
+                <option value="dire">Dire Dawa</option>
+                <option value="amhara">Amhara</option>
+                <option value="oromia">Oromia</option>
+                <option value="tigray">Tigray</option>
+                <option value="sidama">Sidama</option>
+                <option value="snnp">South Ethiopia</option>
+                <option value="southwest">South West Ethiopia</option>
+                <option value="somali">Somali</option>
+                <option value="afar">Afar</option>
+                <option value="benishangul">Benishangul-Gumuz</option>
+                <option value="gambela">Gambela</option>
+                <option value="harari">Harari</option>
+              </select>
+              <span class="error">Please choose your region.</span>
+            </div>
+            <div class="field" data-field>
+              <label for="city">Town / city</label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" required>
+              <span class="error">Please enter your town or city.</span>
+            </div>
+            <div class="field">
+              <label for="subcity">Sub-city / woreda <span class="opt">(optional)</span></label>
+              <input id="subcity" name="subcity" type="text">
+            </div>
+            <div class="field">
+              <label for="kebele">Kebele <span class="opt">(optional)</span></label>
+              <input id="kebele" name="kebele" type="text">
+            </div>
+            <div class="field full" data-field>
+              <label for="address">Street, house number or nearby landmark</label>
+              <input id="address" name="address" type="text" autocomplete="street-address" placeholder="e.g. Bole Road, near the Edna Mall" required>
+              <span class="error">Please add a street or landmark so the courier can find you.</span>
+            </div>
+            <div class="field full">
+              <label for="notes">Delivery notes <span class="opt">(optional)</span></label>
+              <textarea id="notes" name="notes" placeholder="Gate colour, floor, best time to call…"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="payHeading" data-field>
+          <h2 id="payHeading">Payment method</h2>
+          <p class="hint">You'll confirm payment on the next screen. We never ask for card details here.</p>
+          <div class="pay-options" role="radiogroup" aria-labelledby="payHeading">
+
+            <div class="pay-option">
+              <input type="radio" name="pay" id="pay-telebirr" value="telebirr" checked>
+              <label for="pay-telebirr">
+                <span class="radio"></span>
+                <span><span class="pay-name">Telebirr</span><span class="pay-tag rec">Recommended</span></span>
+                <span class="pay-desc">You'll get a payment prompt on your phone. Approve it in the Telebirr app.</span>
+              </label>
+            </div>
+
+            <div class="pay-option">
+              <input type="radio" name="pay" id="pay-cbe" value="cbe">
+              <label for="pay-cbe">
+                <span class="radio"></span>
+                <span class="pay-name">CBE Birr</span>
+                <span class="pay-desc">Pay from your CBE Birr wallet or linked Commercial Bank of Ethiopia account.</span>
+              </label>
+            </div>
+
+            <div class="pay-option">
+              <input type="radio" name="pay" id="pay-chapa" value="chapa">
+              <label for="pay-chapa">
+                <span class="radio"></span>
+                <span class="pay-name">Chapa</span>
+                <span class="pay-desc">Pay with a bank card, mobile money or bank account through Chapa's secure page.</span>
+              </label>
+            </div>
+
+            <div class="pay-option">
+              <input type="radio" name="pay" id="pay-bank" value="bank">
+              <label for="pay-bank">
+                <span class="radio"></span>
+                <span class="pay-name">Bank transfer</span>
+                <span class="pay-desc">We'll send our account details by SMS. Your order is confirmed once the transfer is received.</span>
+              </label>
+            </div>
+
+            <div class="pay-option">
+              <input type="radio" name="pay" id="pay-cod" value="cod">
+              <label for="pay-cod">
+                <span class="radio"></span>
+                <span class="pay-name">Cash on delivery</span>
+                <span class="pay-desc">Pay in birr when your order arrives. Available in Addis Ababa and selected towns.</span>
+              </label>
+            </div>
+          </div>
+          <span class="error" style="display:none; color:var(--accent-dark); font-size:.82rem; margin-top:10px" id="payError">Please choose a payment method.</span>
+        </section>
+
+        <section class="panel">
+          <div class="check" data-check>
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the <a href="#">terms of sale</a> and <a href="#">returns policy</a>. Returns are accepted within 7 days.</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="newsletter" name="newsletter">
+            <label for="newsletter">Send me new arrivals and offers by email or SMS</label>
+          </div>
+        </section>
+      </div>
+
+      <!-- ===== Right: summary ===== -->
+      <aside class="panel summary" aria-labelledby="summaryHeading">
+        <h2 id="summaryHeading">Your order</h2>
+        <p class="hint">Review before you pay.</p>
+
+        <div id="lines"></div>
+
+        <div id="totals">
+          <div class="sum-row"><span>Subtotal</span><span id="subtotal">ETB 0</span></div>
+          <div class="sum-row"><span id="discountLabel">Discount</span><span id="discount">− ETB 0</span></div>
+          <div class="sum-row"><span>Delivery</span><span id="delivery">Choose a region</span></div>
+          <div class="sum-row total"><span>Total</span><span id="total">ETB 0</span></div>
+        </div>
+        <p class="fee-note" id="feeNote">Free delivery on orders over ETB 3,000. Otherwise ETB 150 in Addis Ababa, ETB 250 elsewhere.</p>
+
+        <button class="btn block" type="submit" id="placeOrder">Place order · ETB <span id="btnTotal">0</span></button>
+        <p class="form-error" id="formError" role="alert"></p>
+        <p class="secure">🔒 Your details are sent over an encrypted connection</p>
+      </aside>
+    </form>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand">Essence<span>.</span></div>
+          <p class="footer-tag">Considered wardrobe essentials, made to be worn and kept.</p>
+          <a class="order-btn" href="https://wa.me/251000000000" target="_blank" rel="noopener">Order on WhatsApp</a>
+          <div class="social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="TikTok">tt</a>
+            <a href="#" aria-label="Telegram">tg</a>
+          </div>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html?cat=women">Women</a></li>
+            <li><a href="shop.html?cat=men">Men</a></li>
+            <li><a href="shop.html?cat=kids">Kids</a></li>
+            <li><a href="shop.html?cat=accessories">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Order status</a></li>
+            <li><a href="#">Payment options</a></li>
+            <li><a href="#">Delivery &amp; shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>+251 00 000 0000</li>
+            <li>hello@essence.et</li>
+            <li>Bole, Addis Ababa</li>
+            <li>Mon–Sat, 9:00–18:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <span>© <span id="year"></span> Essence. All rights reserved.</span>
+        <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile bottom navigation -->
+  <nav class="mobile-bar" aria-label="Quick navigation">
+    <a href="index.html"><i>⌂</i>Home</a>
+    <a href="shop.html"><i>▦</i>Shop</a>
+    <a href="shop.html"><i>👜</i>Bag</a>
+    <a href="contact.html"><i>☏</i>Help</a>
+  </nav>
+
+  <script>
+    // ===== Bag (sample order; connect to your real cart before launch) =====
+    const ETB = n => 'ETB ' + Math.round(n).toLocaleString('en-US');
+    const BAG = [
+      { name: 'Knot Front Mini Dress', brand: 'Topshop', size: 'M', color: 'Black', price: 4800, qty: 1, img: 'img/product-img/product-1.jpg' }
+    ];
+
+    // Delivery rules (match the bag and shop pages)
+    const FREE_OVER = 3000;
+    const FEE_ADDIS = 150;
+    const FEE_OTHER = 250;
+
+    const linesEl = document.getElementById('lines');
+    const regionEl = document.getElementById('region');
+
+    function renderLines() {
+      linesEl.innerHTML = BAG.map(i => `
+        <div class="line-item">
+          <img src="${i.img}" alt="${i.name}">
+          <div>
+            <p class="meta">${i.brand}</p>
+            <h3>${i.name}</h3>
+            <p class="meta">Size ${i.size} · ${i.color}</p>
+            <p class="qty-text">Qty ${i.qty}</p>
+          </div>
+          <p class="price">${ETB(i.price * i.qty)}</p>
+        </div>`).join('');
+    }
+
+    function totals() {
+      const count = BAG.reduce((s, i) => s + i.qty, 0);
+      const subtotal = BAG.reduce((s, i) => s + i.price * i.qty, 0);
+      const discount = count >= 2 ? subtotal * 0.15 : 0;
+      const afterDiscount = subtotal - discount;
+      let delivery = 0;
+      if (subtotal > 0 && afterDiscount < FREE_OVER) {
+        delivery = regionEl.value === 'addis' ? FEE_ADDIS : FEE_OTHER;
+      }
+      return { subtotal, discount, delivery, total: afterDiscount + delivery, regionChosen: !!regionEl.value };
+    }
+
+    function renderTotals() {
+      const t = totals();
+      document.getElementById('subtotal').textContent = ETB(t.subtotal);
+      document.getElementById('discountLabel').textContent = t.discount ? 'Discount (15% on 2+ items)' : 'Discount';
+      document.getElementById('discount').textContent = t.discount ? '− ' + ETB(t.discount) : '− ETB 0';
+
+      const deliveryEl = document.getElementById('delivery');
+      if (!t.regionChosen && t.delivery === 0 && t.subtotal - t.discount < FREE_OVER) {
+        deliveryEl.textContent = 'Choose a region';
+      } else {
+        deliveryEl.innerHTML = t.delivery === 0 ? '<span class="free">Free</span>' : ETB(t.delivery);
+      }
+      document.getElementById('total').textContent = ETB(t.total);
+      document.getElementById('btnTotal').textContent = Math.round(t.total).toLocaleString('en-US');
+    }
+
+    regionEl.addEventListener('change', renderTotals);
+
+    // ===== Validation =====
+    const form = document.getElementById('checkoutForm');
+    const errorEl = document.getElementById('formError');
+    const payError = document.getElementById('payError');
+
+    // Accepts 09/07 numbers with or without +251 and spaces
+    function validPhone(v) {
+      const digits = v.replace(/[\s-]/g, '');
+      return /^(\+251|0)?[97]\d{8}$/.test(digits);
+    }
+
+    function setInvalid(field, bad) {
+      field.classList.toggle('invalid', bad);
+    }
+
+    function validateAll() {
+      let ok = true;
+      let firstBad = null;
+
+      form.querySelectorAll('[data-field]').forEach(f => {
+        if (f.matches('.panel')) return; // payment group handled below
+        const input = f.querySelector('input, select, textarea');
+        let bad = !input.value.trim();
+        if (!bad && f.dataset.type === 'phone') bad = !validPhone(input.value);
+        setInvalid(f, bad);
+        if (bad) { ok = false; firstBad = firstBad || input; }
+      });
+
+      const pay = form.querySelector('input[name="pay"]:checked');
+      payError.style.display = pay ? 'none' : 'block';
+      if (!pay) { ok = false; firstBad = firstBad || form.querySelector('input[name="pay"]'); }
+
+      const terms = document.getElementById('terms');
+      const termsWrap = terms.closest('.check');
+      termsWrap.classList.toggle('invalid', !terms.checked);
+      if (!terms.checked) { ok = false; firstBad = firstBad || terms; }
+
+      if (firstBad) firstBad.focus();
+      return ok;
+    }
+
+    form.querySelectorAll('input, select, textarea').forEach(el =>
+      el.addEventListener('input', () => el.closest('[data-field]')?.classList.remove('invalid')));
+    form.querySelectorAll('input[name="pay"]').forEach(el =>
+      el.addEventListener('change', () => payError.style.display = 'none'));
+    document.getElementById('terms').addEventListener('change', e =>
+      e.target.closest('.check').classList.remove('invalid'));
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      if (!validateAll()) {
+        errorEl.textContent = 'Please check the highlighted fields.';
+        return;
+      }
+      // Replace with a real submission: create the order, then redirect to the chosen
+      // payment provider (Telebirr, CBE Birr, Chapa) or show bank transfer details.
+      const method = form.querySelector('input[name="pay"]:checked').value;
+      errorEl.style.color = 'var(--green)';
+      errorEl.textContent = 'Thank you. Your order is being placed (' + method + ').';
+    });
+
+    // ===== Init =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      const open = document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('menuToggle').setAttribute('aria-expanded', open);
+    });
+    renderLines();
+    renderTotals();
+  </script>
+</body>
+</html>

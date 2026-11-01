@@ -1,0 +1,451 @@
+    /* ####################################################
+    :: Template Name: Essence - Fashion Ecommerce Template
+    :: Author: Colorlib
+    :: Author URL: https://colorlib.com
+    :: Description: Essence is smart & elegant fashion e-commerce Template. It's suitable for all e-commerce business platform.
+    :: Version: 1.0.0
+    :: Created: April 27, 2018
+    :: Last Updated: May 2, 2018
+    #################################################### */
+
+/* Modern storefront refresh */
+.home-page {
+    --ink: #20231f;
+    --muted: #767970;
+    --paper: #f7f6f2;
+    --accent: #a45b42;
+    color: var(--ink);
+    background: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.home-page h1,
+.home-page h2,
+.home-page h3,
+.home-page h6 {
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+}
+
+.home-page a,
+.home-page a:hover,
+.home-page a:focus {
+    transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.home-page .header_area {
+    border-bottom: 1px solid rgba(32, 35, 31, .08);
+    box-shadow: 0 3px 20px rgba(32, 35, 31, .035);
+}
+
+.home-page .header_area .classy-nav-container {
+    padding: 0 5.2%;
+    background-color: #fff;
+}
+
+.home-page .header_area .classy-navbar {
+    height: 82px;
+}
+
+.home-page .header_area .nav-brand img {
+    max-width: 128px;
+    max-height: 48px;
+    object-fit: contain;
+}
+
+.home-page .header_area .classynav ul li a {
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.home-page .header_area .header-meta > div {
+    margin-left: 17px;
+}
+
+.home-page .welcome_area {
+    height: min(740px, calc(100vh - 82px));
+    min-height: 560px;
+    background-position: center 42%;
+}
+
+.home-page .welcome_area:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(18, 19, 17, .66) 0%, rgba(18, 19, 17, .30) 48%, rgba(18, 19, 17, .04) 100%);
+}
+
+.home-page .welcome_area .container {
+    position: relative;
+    z-index: 2;
+}
+
+.home-page .welcome_area .hero-content {
+    max-width: 670px;
+    padding: 35px 0;
+}
+
+.home-page .welcome_area .hero-eyebrow,
+.home-page .welcome_area .hero-description {
+    color: rgba(255, 255, 255, .86);
+}
+
+.home-page .welcome_area .hero-eyebrow,
+.home-page .sale-eyebrow,
+.home-page .section-eyebrow {
+    margin-bottom: 18px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.home-page .welcome_area .hero-content h1 {
+    margin: 0 0 22px;
+    color: #fff;
+    font-size: clamp(58px, 7vw, 94px);
+    letter-spacing: -.055em;
+    line-height: .98;
+}
+
+.home-page .welcome_area .hero-description {
+    margin-bottom: 30px;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.home-page .essence-btn {
+    min-width: 190px;
+    padding: 16px 21px;
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    background: var(--ink);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.home-page .essence-btn:hover,
+.home-page .essence-btn:focus {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.home-page .welcome_area .essence-btn {
+    border-color: #fff;
+    background: #fff;
+    color: var(--ink);
+}
+
+.home-page .welcome_area .essence-btn:hover,
+.home-page .welcome_area .essence-btn:focus {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+}
+
+.home-page .top_catagory_area {
+    padding: 88px 0 96px;
+}
+
+.home-page .top_catagory_area .row {
+    margin-right: -12px;
+    margin-left: -12px;
+}
+
+.home-page .top_catagory_area [class*="col-"] {
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+.home-page .single_catagory_area {
+    height: 390px;
+    overflow: hidden;
+    background-position: center;
+}
+
+.home-page .single_catagory_area:after {
+    z-index: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(16, 17, 15, .55) 100%);
+    opacity: .9;
+}
+
+.home-page .single_catagory_area:hover {
+    transform: translateY(-4px);
+}
+
+.home-page .single_catagory_area .catagory-content {
+    position: absolute;
+    bottom: 28px;
+    left: 30px;
+    z-index: 2;
+    text-align: left;
+}
+
+.home-page .single_catagory_area .catagory-content > span {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, .78);
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.home-page .single_catagory_area .catagory-content a {
+    color: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.home-page .single_catagory_area .catagory-content a span {
+    display: inline-block;
+    margin-left: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    transition: transform 180ms ease;
+}
+
+.home-page .single_catagory_area:hover .catagory-content a span {
+    transform: translateX(5px);
+}
+
+.home-page .cta-area .container {
+    max-width: 1320px;
+}
+
+.home-page .cta-area .cta-content {
+    height: 480px;
+    padding: 50px 8%;
+    background-position: center 43%;
+}
+
+.home-page .cta-area .cta-content:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(20, 20, 18, .05) 20%, rgba(20, 20, 18, .56) 100%);
+}
+
+.home-page .cta-area .cta-content > .h-100 {
+    position: relative;
+    z-index: 2;
+}
+
+.home-page .cta-area .cta--text {
+    max-width: 400px;
+    color: #fff;
+}
+
+.home-page .cta-area .sale-eyebrow {
+    color: rgba(255, 255, 255, .8);
+}
+
+.home-page .cta-area .cta-content h6 {
+    margin-bottom: 6px;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.home-page .cta-area .cta-content h2 {
+    margin-bottom: 25px;
+    color: #fff;
+    font-size: clamp(42px, 5vw, 64px);
+    letter-spacing: -.04em;
+    line-height: 1.05;
+}
+
+.home-page .new_arrivals_area {
+    padding: 100px 0 72px;
+}
+
+.home-page .section-heading {
+    margin-bottom: 38px;
+}
+
+.home-page .section-heading .section-eyebrow {
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.home-page .section-heading h2 {
+    margin-bottom: 8px;
+    font-size: clamp(38px, 4vw, 52px);
+    letter-spacing: -.04em;
+}
+
+.home-page .section-heading .section-intro {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.home-page .single-product-wrapper {
+    margin-bottom: 20px;
+}
+
+.home-page .single-product-wrapper .product-img {
+    background: var(--paper);
+}
+
+.home-page .single-product-wrapper .product-img img {
+    transition: transform 450ms ease, opacity 350ms ease;
+}
+
+.home-page .single-product-wrapper:hover .product-img img {
+    transform: scale(1.035);
+}
+
+.home-page .single-product-wrapper .product-description {
+    padding: 18px 4px 8px;
+}
+
+.home-page .single-product-wrapper .product-description span {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.home-page .single-product-wrapper .product-description h6 {
+    margin: 7px 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .01em;
+}
+
+.home-page .single-product-wrapper .product-description .product-price {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.home-page .brands-area {
+    padding: 58px 8%;
+    background: var(--paper);
+}
+
+.home-page .brands-area .single-brands-logo img {
+    filter: grayscale(1);
+    opacity: .58;
+    transition: opacity 180ms ease;
+}
+
+.home-page .brands-area .single-brands-logo img:hover {
+    opacity: 1;
+}
+
+.home-page .footer_area {
+    padding: 72px 0 34px;
+    background: #20231f;
+}
+
+.home-page .footer_area .footer_heading h6 {
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+.home-page .footer_area .row.mt-5 {
+    border-top: 1px solid rgba(255, 255, 255, .12);
+    padding-top: 18px;
+}
+
+.home-page .footer_area .row.mt-5 p {
+    color: rgba(255, 255, 255, .48);
+    font-size: 10px;
+}
+
+@media (max-width: 767px) {
+    .home-page .header_area .classy-nav-container {
+        padding: 0 14px;
+    }
+
+    .home-page .header_area .classy-navbar {
+        height: 72px;
+    }
+
+    .home-page .header_area .header-meta > div {
+        margin-left: 11px;
+    }
+
+    .home-page .welcome_area {
+        height: 620px;
+        min-height: 0;
+        max-height: calc(100vh - 72px);
+        background-position: 58% center;
+    }
+
+    .home-page .welcome_area:after {
+        background: linear-gradient(90deg, rgba(18, 19, 17, .7), rgba(18, 19, 17, .18));
+    }
+
+    .home-page .welcome_area .hero-content {
+        padding: 25px 10px;
+    }
+
+    .home-page .welcome_area .hero-content h1 {
+        font-size: clamp(54px, 14vw, 76px);
+    }
+
+    .home-page .welcome_area .hero-description {
+        font-size: 13px;
+    }
+
+    .home-page .top_catagory_area {
+        padding: 52px 0 36px;
+    }
+
+    .home-page .single_catagory_area {
+        height: 330px;
+        margin-bottom: 16px;
+    }
+
+    .home-page .cta-area .cta-content {
+        height: 420px;
+        padding: 32px 24px;
+        background-position: 42% center;
+    }
+
+    .home-page .cta-area .cta-content:after {
+        background: rgba(20, 20, 18, .4);
+    }
+
+    .home-page .cta-area .cta-content > .h-100 {
+        justify-content: flex-start !important;
+    }
+
+    .home-page .new_arrivals_area {
+        padding: 68px 0 42px;
+    }
+
+    .home-page .brands-area {
+        padding: 42px 6% 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-page *,
+    .home-page *::before,
+    .home-page *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
